@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>SISTEMA DE RECUPERACIÓN - REGISTRO 04</title>
+    <title>SISTEMA DE RECUPERACIÓN - REGISTRO 05</title>
     <style>
         body {
             font-family: 'Courier New', Courier, monospace; 
@@ -26,7 +26,7 @@
 
         .contenedor-iframe {
             border: 2px solid #333;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
             margin-bottom: 25px;
             background: #111;
         }
@@ -34,8 +34,8 @@
         #btn-continuar {
             display: none; 
             background: transparent;
-            color: #00ff00; 
-            border: 1px solid #00ff00;
+            color: #00ffff; 
+            border: 1px solid #00ffff;
             padding: 12px 35px;
             cursor: pointer;
             font-family: 'Courier New', Courier, monospace;
@@ -45,28 +45,28 @@
         }
 
         #btn-continuar:hover {
-            background: #00ff00;
+            background: #00ffff;
             color: #000;
         }
 
         #seccion-terminal {
             display: none;
             text-align: center;
-            border: 1px solid #00ff00;
+            border: 1px solid #00ffff;
             padding: 40px;
             width: 100%;
             max-width: 500px;
         }
 
         input[type="text"] {
-            background: transparent; border: none; border-bottom: 1px solid #00ff00;
-            color: #00ff00; font-family: 'Courier New', Courier, monospace;
+            background: transparent; border: none; border-bottom: 1px solid #00ffff;
+            color: #00ffff; font-family: 'Courier New', Courier, monospace;
             font-size: 1.2em; text-align: center; outline: none;
             width: 100%; margin-bottom: 25px; padding: 10px 0;
         }
 
         .btn-verificar {
-            background: #00ff00; color: #000000; border: none;
+            background: #00ffff; color: #000000; border: none;
             padding: 12px 40px; font-weight: bold; cursor: pointer;
         }
     </style>
@@ -81,8 +81,8 @@
     </div>
 
     <div id="seccion-terminal">
-        <h1>ANÁLISIS ANTROPOLÓGICO</h1>
-        <p>¿Cuál es el nombre de este lugar?</p>
+        <h1>ANÁLISIS DE FRECUENCIA</h1>
+        <p>¿Qué nombre recibe este grupo?</p>
         <input type="text" id="passInput" placeholder="..." autofocus>
         <br>
         <button class="btn-verificar" onclick="checkPass()">ENVIAR</button>
@@ -99,9 +99,16 @@
             player = new YT.Player('player', {
                 height: '315',
                 width: '560',
-                videoId: 'otDGhjhJ-NU', 
-                playerVars: { 'autoplay': 0, 'controls': 1, 'rel': 0, 'origin': window.location.origin },
-                events: { 'onStateChange': onPlayerStateChange }
+                videoId: 'vuajKkwN3nA', 
+                playerVars: { 
+                    'autoplay': 0, 
+                    'controls': 1, 
+                    'rel': 0, 
+                    'origin': window.location.origin 
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
             });
         }
 
@@ -118,15 +125,19 @@
 
         function checkPass() {
             const input = document.getElementById("passInput").value.trim().toLowerCase();
-            const respuestasCorrectas = ["nagoro", "nagoro village", "valle de las muñecas", "doll village", "dolls village", "aldea de las muñecas"];
             
-            if (respuestasCorrectas.some(res => input.includes(res))) {
-                // Redirección a la página final de tu gincana
-                window.location.href = "https://brameix-afk.github.io/Pt3-3-/";
+            // Verificación de contraseñas: silent people, silentpeaople, silent
+            if (input === "silent people" || input === "silentpeople" || input === "silentpeaople" || input === "silent") {
+                window.location.href = "https://brameix-afk.github.io/Pt-3-2/";
             } else {
-                alert("UBICACIÓN NO RECONOCIDA");
+                alert("DATOS NO COINCIDEN");
+                document.getElementById("passInput").value = "";
             }
         }
+
+        document.getElementById("passInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") checkPass();
+        });
     </script>
 </body>
 </html>
