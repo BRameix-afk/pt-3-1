@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>SISTEMA DE RECUPERACIÓN - REGISTRO 04</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace; 
+            background-color: #000000; 
+            color: #ffffff; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #seccion-video {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .contenedor-iframe {
+            border: 2px solid #333;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+            margin-bottom: 25px;
+            background: #111;
+        }
+
+        #btn-continuar {
+            display: none; 
+            background: transparent;
+            color: #00ff00; 
+            border: 1px solid #00ff00;
+            padding: 12px 35px;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        #btn-continuar:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        #seccion-terminal {
+            display: none;
+            text-align: center;
+            border: 1px solid #00ff00;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        input[type="text"] {
+            background: transparent; border: none; border-bottom: 1px solid #00ff00;
+            color: #00ff00; font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2em; text-align: center; outline: none;
+            width: 100%; margin-bottom: 25px; padding: 10px 0;
+        }
+
+        .btn-verificar {
+            background: #00ff00; color: #000000; border: none;
+            padding: 12px 40px; font-weight: bold; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="seccion-video">
+        <div class="contenedor-iframe">
+            <div id="player"></div>
+        </div>
+        <button id="btn-continuar" onclick="mostrarTerminal()">CONTINUAR ></button>
+    </div>
+
+    <div id="seccion-terminal">
+        <h1>ANÁLISIS ANTROPOLÓGICO</h1>
+        <p>¿Cuál es el nombre de este lugar?</p>
+        <input type="text" id="passInput" placeholder="..." autofocus>
+        <br>
+        <button class="btn-verificar" onclick="checkPass()">ENVIAR</button>
+    </div>
+
+    <script>
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '315',
+                width: '560',
+                videoId: 'otDGhjhJ-NU', 
+                playerVars: { 'autoplay': 0, 'controls': 1, 'rel': 0, 'origin': window.location.origin },
+                events: { 'onStateChange': onPlayerStateChange }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.ENDED) {
+                document.getElementById("btn-continuar").style.display = "block";
+            }
+        }
+
+        function mostrarTerminal() {
+            document.getElementById("seccion-video").style.display = "none";
+            document.getElementById("seccion-terminal").style.display = "block";
+        }
+
+        function checkPass() {
+            const input = document.getElementById("passInput").value.trim().toLowerCase();
+            const respuestasCorrectas = ["nagoro", "nagoro village", "valle de las muñecas", "doll village", "dolls village", "aldea de las muñecas"];
+            
+            if (respuestasCorrectas.some(res => input.includes(res))) {
+                // Redirección a la página final de tu gincana
+                window.location.href = "https://brameix-afk.github.io/Pt3-3-/";
+            } else {
+                alert("UBICACIÓN NO RECONOCIDA");
+            }
+        }
+    </script>
+</body>
+</html>
